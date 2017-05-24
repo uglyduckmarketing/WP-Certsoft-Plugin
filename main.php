@@ -28,35 +28,34 @@
 global $cert_db;
 $account = get_option('certsoft_account',1);
 $result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
-//var_dump($result->num_rows);
-if($result->num_rows > 0){
-	while($row = $result->fetch_assoc()) {
-	    print '<tr><td><strong>Account Name:</strong> </td><td>'.$row["schoolName"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>URL</strong>: </td><td>'.$row["schoolURL"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Email</strong>: </td><td>'.$row["schoolEmail"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Phone</strong>: </td><td>'.$row["phone"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Tolle Free #</strong>: </td><td>'.$row["tollFree"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Fax</strong>: </td><td>'.$row["fax"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Address</strong>: </td><td>'.$row["address"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>City</strong>: </td><td>'.$row["city"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>State</strong>: </td><td>'.$row["state"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Zipcode</strong>: </td><td>'.$row["zip"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>License</strong>: </td><td>'.$row["license"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Homepage</strong>: </td><td>'.$row["homepage"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.$row["instructorFirstName"].'</td><td>[certsoft_]</td></tr>';
-	    print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.$row["instructorLastName"].'</td><td>[certsoft_]</td></tr>';
-			print '<tr><td><strong>Lowest Package Price</strong>: </td><td>'.do_shortcode('[certsoft_lowest_package_price]').'</td><td>[certsoft_lowest_package_price]</td></tr>';
 
-	}
+if($result->num_rows > 0){
+	$school_info = $result->fetch_assoc();
+  print '<tr><td><strong>Account Name:</strong> </td><td>'.do_shortcode('[certsoft_school_name]').'</td><td>[certsoft_school_name]</td></tr>';
+  print '<tr><td><strong>URL</strong>: </td><td>'.do_shortcode('[certsoft_school_url]').'</td><td>[certsoft_school_url]</td></tr>';
+  print '<tr><td><strong>Email</strong>: </td><td>'.do_shortcode('[certsoft_school_email]').'</td><td>[certsoft_school_email]</td></tr>';
+  print '<tr><td><strong>Phone</strong>: </td><td>'.$school_info["phone"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Tolle Free #</strong>: </td><td>'.$school_info["tollFree"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Fax</strong>: </td><td>'.$school_info["fax"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Address</strong>: </td><td>'.$school_info["address"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>City</strong>: </td><td>'.$school_info["city"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>State</strong>: </td><td>'.$school_info["state"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Zipcode</strong>: </td><td>'.$school_info["zip"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>License</strong>: </td><td>'.$school_info["license"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Homepage</strong>: </td><td>'.$school_info["homepage"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.$school_info["instructorFirstName"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.$school_info["instructorLastName"].'</td><td>[certsoft_]</td></tr>';
+	print '<tr><td><strong>Lowest Package Price</strong>: </td><td>'.do_shortcode('[certsoft_lowest_package_price]').'</td><td>[certsoft_lowest_package_price]</td></tr>';
 }
 
 ?>
 </table>
 <h2>Packages</h2>
 <?php
-$cs_school_url = $row["schoolURL"];
-$cs_school_dir = 'ts-school';
+$cs_school_url = $school_info["schoolURL"];
+$cs_school_dir = 'cs-content';
 $cs_mod_dir = 'modules';
+$cs_school_mod = 'school';
 $result = $cert_db->query("SELECT * FROM cs_options WHERE option_name = 'school_signup_template' AND account_id = ".$account);
 if($result->num_rows > 0){
 	$row = $result->fetch_assoc();
@@ -76,7 +75,7 @@ if($result->num_rows > 0){
 		echo '<form action="';
 		//DIRECTORY_SEPARATOR
 		echo $cs_school_url.'/';
-		echo $cs_school_dir.'/'.$cs_mod_dir.'/school/signup/';
+		echo $cs_school_dir.'/'.$cs_mod_dir.'/'.$cs_school_mod.'/signup/';
 		echo $cs_signup_template;
 		echo '/register_actions.php';
 		echo '" method="post">';

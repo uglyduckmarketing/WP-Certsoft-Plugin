@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: Just another contact form plugin. Simple but flexible.
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.3
+Version: 1.4
 */
 
 /**
@@ -21,7 +21,7 @@ if(true){
 		get_option('certsoft_db_pass'),
 		get_option('certsoft_db_name')
 	);
-	if(@mysqli_connect_error()){
+	if($cert_db->connect_errno){
 	    //die('Connect Error ('.mysqli_connect_errno().')'.mysqli_connect_error());
 	}
 	//$cert_db->close();
@@ -81,22 +81,14 @@ function certsoft_page(){
 	include('main.php');
 }
 
-certsoft_create_shortcodes();
-
 
 //Shortcodes
 
-function certsoft_create_shortcodes(){
-	global $cert_db;
-	$account = get_option('certsoft_account',1);
-	$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
-	//var_dump($result->num_rows);
-	if($result->num_rows > 0){
-		while($row = $result->fetch_assoc()) {
-			add_shortcode( 'certsoft_school_name', function(){return $row["schoolName"];});
-		    //print '<tr><td><strong>Account Name:</strong> </td><td>'..'</td><td>[certsoft_]</td></tr>';
-		    //print '<tr><td><strong>URL</strong>: </td><td>'.$row["schoolURL"].'</td><td>[certsoft_]</td></tr>';
-		    //print '<tr><td><strong>Email</strong>: </td><td>'.$row["schoolEmail"].'</td><td>[certsoft_]</td></tr>';
+
+		add_shortcode( 'certsoft_school_name', 'certsoft_school_name_func');
+		add_shortcode( 'certsoft_school_url', 'certsoft_school_url_func');
+		add_shortcode( 'certsoft_school_email', 'certsoft_school_email_func');
+		
 		    //print '<tr><td><strong>Phone</strong>: </td><td>'.$row["phone"].'</td><td>[certsoft_]</td></tr>';
 		    //print '<tr><td><strong>Tolle Free #</strong>: </td><td>'.$row["tollFree"].'</td><td>[certsoft_]</td></tr>';
 		    //print '<tr><td><strong>Fax</strong>: </td><td>'.$row["fax"].'</td><td>[certsoft_]</td></tr>';
@@ -109,9 +101,37 @@ function certsoft_create_shortcodes(){
 		    //print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.$row["instructorFirstName"].'</td><td>[certsoft_]</td></tr>';
 		    //print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.$row["instructorLastName"].'</td><td>[certsoft_]</td></tr>';
 
-		}
-	}
-}
+
+			function certsoft_school_name_func(){
+				global $cert_db;
+				$account = get_option('certsoft_account',1);
+				$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
+				if($result->num_rows > 0){
+					$school = $result->fetch_assoc();
+					return $school['schoolName'];
+				}
+			}
+
+			function certsoft_school_url_func(){
+				global $cert_db;
+				$account = get_option('certsoft_account',1);
+				$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
+				if($result->num_rows > 0){
+					$school = $result->fetch_assoc();
+					return $school['schoolURL'];
+				}
+			}
+
+			function certsoft_school_email_func(){
+				global $cert_db;
+				$account = get_option('certsoft_account',1);
+				$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
+				if($result->num_rows > 0){
+					$school = $result->fetch_assoc();
+					return $school['schoolEmail'];
+				}
+			}
+
 
 
 function certsoft_package_button_func( $atts, $content = "" ) {
