@@ -6,7 +6,8 @@ Plugin URI: http://certsoft.net/
 Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.4.2
+Version: 1.4.3
+GitHub Plugin URI: https://github.com/uglyduckmarketing/WP-Certsoft-Plugin
 */
 
 /**
