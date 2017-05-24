@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: Just another contact form plugin. Simple but flexible.
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.4
+Version: 1.4.1
 */
 
 /**
@@ -88,7 +88,7 @@ function certsoft_page(){
 		add_shortcode( 'certsoft_school_name', 'certsoft_school_name_func');
 		add_shortcode( 'certsoft_school_url', 'certsoft_school_url_func');
 		add_shortcode( 'certsoft_school_email', 'certsoft_school_email_func');
-		
+
 		    //print '<tr><td><strong>Phone</strong>: </td><td>'.$row["phone"].'</td><td>[certsoft_]</td></tr>';
 		    //print '<tr><td><strong>Tolle Free #</strong>: </td><td>'.$row["tollFree"].'</td><td>[certsoft_]</td></tr>';
 		    //print '<tr><td><strong>Fax</strong>: </td><td>'.$row["fax"].'</td><td>[certsoft_]</td></tr>';
@@ -175,7 +175,7 @@ function certsoft_lowest_package_price_func($atts, $content = ""){
 	$result = $cert_db->query("SELECT MIN(`packagePrice`) as price FROM ts_packages WHERE `packageActive` = 1");
 	if(is_object($result)){
 		$row = $result->fetch_assoc();
-		return "$".$row['price'];
+		return $row['price'];
 	}
 }
 add_shortcode( 'certsoft_lowest_package_price', 'certsoft_lowest_package_price_func' );
