@@ -45,13 +45,15 @@ if($result->num_rows > 0){
 	    print '<tr><td><strong>Homepage</strong>: </td><td>'.$row["homepage"].'</td><td>[certsoft_]</td></tr>';
 	    print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.$row["instructorFirstName"].'</td><td>[certsoft_]</td></tr>';
 	    print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.$row["instructorLastName"].'</td><td>[certsoft_]</td></tr>';
-	}  
+			print '<tr><td><strong>Lowest Package Price</strong>: </td><td>'.do_shortcode('[certsoft_lowest_package_price]').'</td><td>[certsoft_lowest_package_price]</td></tr>';
+
+	}
 }
 
 ?>
 </table>
 <h2>Packages</h2>
-<?php 
+<?php
 $cs_school_url = $row["schoolURL"];
 $cs_school_dir = 'ts-school';
 $cs_mod_dir = 'modules';
@@ -69,7 +71,7 @@ $cs_signup_style = $row['option_value'];
 $result = $cert_db->query("SELECT * FROM ts_packages");
 if($result->num_rows > 0){
 	while($row = $result->fetch_assoc()) {
-	
+
 		echo '<h3>'.$row['packageTitle'].'</h3><textarea id="html" class="full" style="width: 500px; height: 200px" rows="4">';
 		echo '<form action="';
 		//DIRECTORY_SEPARATOR
@@ -91,7 +93,7 @@ if($result->num_rows > 0){
 jQuery(document).ready(function($){
 	$('#certsoft_save_connection_info').click(function(){
 		$.post(
-		    ajaxurl, 
+		    ajaxurl,
 		    {
 		        'action': 'certsoft_save_connection_ajax',
 		        'db_name':   $('#db_name').val(),
@@ -99,7 +101,7 @@ jQuery(document).ready(function($){
 		        'db_pass':   $('#db_pass').val(),
 		        'db_host':   $('#db_host').val(),
 		        'account':   $('#account').val()
-		    }, 
+		    },
 		    function(response){
 				$('#certsoft_save_connection_results').html(response);
 		    }

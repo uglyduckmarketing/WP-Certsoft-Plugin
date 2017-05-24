@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: Just another contact form plugin. Simple but flexible.
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.2
+Version: 1.3
 */
 
 /**
@@ -81,10 +81,39 @@ function certsoft_page(){
 	include('main.php');
 }
 
-
+certsoft_create_shortcodes();
 
 
 //Shortcodes
+
+function certsoft_create_shortcodes(){
+	global $cert_db;
+	$account = get_option('certsoft_account',1);
+	$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
+	//var_dump($result->num_rows);
+	if($result->num_rows > 0){
+		while($row = $result->fetch_assoc()) {
+			add_shortcode( 'certsoft_school_name', function(){return $row["schoolName"];});
+		    //print '<tr><td><strong>Account Name:</strong> </td><td>'..'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>URL</strong>: </td><td>'.$row["schoolURL"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Email</strong>: </td><td>'.$row["schoolEmail"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Phone</strong>: </td><td>'.$row["phone"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Tolle Free #</strong>: </td><td>'.$row["tollFree"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Fax</strong>: </td><td>'.$row["fax"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Address</strong>: </td><td>'.$row["address"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>City</strong>: </td><td>'.$row["city"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>State</strong>: </td><td>'.$row["state"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Zipcode</strong>: </td><td>'.$row["zip"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>License</strong>: </td><td>'.$row["license"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Homepage</strong>: </td><td>'.$row["homepage"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.$row["instructorFirstName"].'</td><td>[certsoft_]</td></tr>';
+		    //print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.$row["instructorLastName"].'</td><td>[certsoft_]</td></tr>';
+
+		}
+	}
+}
+
+
 function certsoft_package_button_func( $atts, $content = "" ) {
 	global $cert_db;
 	$account = get_option('certsoft_account',1);
@@ -123,10 +152,11 @@ add_shortcode( 'certsoft_package_button', 'certsoft_package_button_func' );
 
 function certsoft_lowest_package_price_func($atts, $content = ""){
 	global $cert_db;
-	$account = get_option('certsoft_account',1);
 	$result = $cert_db->query("SELECT MIN(`packagePrice`) as price FROM ts_packages WHERE `packageActive` = 1");
-	$row = $result->fetch_assoc();
-	return "$".$row['option_value'];
+	if(is_object($result)){
+		$row = $result->fetch_assoc();
+		return "$".$row['price'];
+	}
 }
 add_shortcode( 'certsoft_lowest_package_price', 'certsoft_lowest_package_price_func' );
 ?>
