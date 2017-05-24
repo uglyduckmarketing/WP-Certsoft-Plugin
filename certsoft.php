@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.4.3
+Version: 1.4.4
 GitHub Plugin URI: https://github.com/uglyduckmarketing/WP-Certsoft-Plugin
 */
 
@@ -49,10 +49,10 @@ function certsoft_save_connection_ajax(){
 	update_option('certsoft_db_pass', $_POST['db_pass'] );
 	update_option('certsoft_db_host', $_POST['db_host'] );
 	update_option('certsoft_account', $_POST['account'] );
+	update_option('certsoft_school_mod_dir', $_POST['school_mod_dir'] );
 	echo "Updated.";
 	die();
 }
-
 
 add_action( 'wp_dashboard_setup', 'certsoft_add_dashboard_widgets' );
 function certsoft_add_dashboard_widgets() {
@@ -169,7 +169,6 @@ function certsoft_package_button_func( $atts, $content = "" ) {
 	return $string;
 }
 add_shortcode( 'certsoft_package_button', 'certsoft_package_button_func' );
-
 
 function certsoft_lowest_package_price_func($atts, $content = ""){
 	global $cert_db;

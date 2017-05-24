@@ -19,7 +19,12 @@
 </p>
 <p>
 	<label for="account">Account ID</label>
-	<input type="text" name="account" id="account" value="<?php echo get_option('certsoft_account', '' ); ?>" />
+	<input type="text" name="account" id="account" value="<?php echo get_option('certsoft_account', 'school' ); ?>" />
+</p>
+<hr />
+<p>
+	<label for="account">School Module Directory</label>
+	<input type="text" name="school_mod_dir" id="school_mod_dir" value="<?php echo get_option('certsoft_school_mod_dir', 'school' ); ?>" />
 </p>
 <p><a id="certsoft_save_connection_info" class="button button-primary" href="#">Save</a></p>
 <h2>Account Information</h2>
@@ -55,36 +60,39 @@ if($result->num_rows > 0){
 $cs_school_url = $school_info["schoolURL"];
 $cs_school_dir = 'cs-content';
 $cs_mod_dir = 'modules';
-$cs_school_mod = 'school';
-$result = $cert_db->query("SELECT * FROM cs_options WHERE option_name = 'school_signup_template' AND account_id = ".$account);
-if($result->num_rows > 0){
-	$row = $result->fetch_assoc();
-}
-$cs_signup_template = $row['option_value'];
-$result = $cert_db->query("SELECT * FROM cs_options WHERE option_name = 'school_signup_style' AND account_id = ".$account);
-if($result->num_rows > 0){
-	$row = $result->fetch_assoc();
-}
-$cs_signup_style = $row['option_value'];
-//
-$result = $cert_db->query("SELECT * FROM ts_packages");
-if($result->num_rows > 0){
-	while($row = $result->fetch_assoc()) {
+$cs_school_mod = get_option('certsoft_school_mod_dir', 'school' );
 
-		echo '<h3>'.$row['packageTitle'].'</h3><textarea id="html" class="full" style="width: 500px; height: 200px" rows="4">';
-		echo '<form action="';
-		//DIRECTORY_SEPARATOR
-		echo $cs_school_url.'/';
-		echo $cs_school_dir.'/'.$cs_mod_dir.'/'.$cs_school_mod.'/signup/';
-		echo $cs_signup_template;
-		echo '/register_actions.php';
-		echo '" method="post">';
-		echo "<input type=\"hidden\" name=\"package\" value=\"{$row['packageID']}\" />";
-		echo '<input type="hidden" name="action" value="package-button" />';
-		echo '<input type="hidden" name="item_type" value="package" />';
-		echo '<input type="submit" value="select package" />';
-		echo '</form>';
-		echo '</textarea><p>[certsoft_package_button package="'.$row['packageID'].'"]</p>';
+if(is_object($cert_db)){
+	$result = $cert_db->query("SELECT * FROM cs_options WHERE option_name = 'school_signup_template' AND account_id = ".$account);
+	if($result->num_rows > 0){
+		$row = $result->fetch_assoc();
+	}
+	$cs_signup_template = $row['option_value'];
+	$result = $cert_db->query("SELECT * FROM cs_options WHERE option_name = 'school_signup_style' AND account_id = ".$account);
+	if($result->num_rows > 0){
+		$row = $result->fetch_assoc();
+	}
+	$cs_signup_style = $row['option_value'];
+	//
+	$result = $cert_db->query("SELECT * FROM ts_packages");
+	if($result->num_rows > 0){
+		while($row = $result->fetch_assoc()) {
+
+			echo '<h3>'.$row['packageTitle'].'</h3><textarea id="html" class="full" style="width: 500px; height: 200px" rows="4">';
+			echo '<form action="';
+			//DIRECTORY_SEPARATOR
+			echo $cs_school_url.'/';
+			echo $cs_school_dir.'/'.$cs_mod_dir.'/'.$cs_school_mod.'/signup/';
+			echo $cs_signup_template;
+			echo '/register_actions.php';
+			echo '" method="post">';
+			echo "<input type=\"hidden\" name=\"package\" value=\"{$row['packageID']}\" />";
+			echo '<input type="hidden" name="action" value="package-button" />';
+			echo '<input type="hidden" name="item_type" value="package" />';
+			echo '<input type="submit" value="select package" />';
+			echo '</form>';
+			echo '</textarea><p>[certsoft_package_button package="'.$row['packageID'].'"]</p>';
+		}
 	}
 }
 ?>
@@ -99,7 +107,8 @@ jQuery(document).ready(function($){
 		        'db_user':   $('#db_user').val(),
 		        'db_pass':   $('#db_pass').val(),
 		        'db_host':   $('#db_host').val(),
-		        'account':   $('#account').val()
+		        'account':   $('#account').val(),
+						'school_mod_dir':   $('#school_mod_dir').val()
 		    },
 		    function(response){
 				$('#certsoft_save_connection_results').html(response);
