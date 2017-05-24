@@ -3,10 +3,10 @@
 /*
 Plugin Name: CertSoft Plugin
 Plugin URI: http://certsoft.net/
-Description: Just another contact form plugin. Simple but flexible.
+Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.4.1
+Version: 1.4.2
 */
 
 /**
