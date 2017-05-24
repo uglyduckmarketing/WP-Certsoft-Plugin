@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: Just another contact form plugin. Simple but flexible.
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.1
+Version: 1.2
 */
 
 /**
@@ -24,10 +24,10 @@ if(true){
 	if(@mysqli_connect_error()){
 	    //die('Connect Error ('.mysqli_connect_errno().')'.mysqli_connect_error());
 	}
-	//$cert_db->close(); 
+	//$cert_db->close();
 }
-// 
-add_action( 'admin_init', 'remove_dashboard_meta' ); 
+//
+add_action( 'admin_init', 'remove_dashboard_meta' );
 function remove_dashboard_meta(){
         remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
         remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
@@ -52,7 +52,7 @@ function certsoft_save_connection_ajax(){
 	die();
 }
 
- 
+
 add_action( 'wp_dashboard_setup', 'certsoft_add_dashboard_widgets' );
 function certsoft_add_dashboard_widgets() {
 
@@ -60,10 +60,10 @@ function certsoft_add_dashboard_widgets() {
 		 'certsoft_dashboard_widget',        	// Widget slug.
 		 'CertSoft',         					// Title.
 		 'certsoft_dashboard_widget_function' 	// Display function.
-    );	
+    );
 }
 function certsoft_dashboard_widget_function(){
-	
+
 
 }
 
@@ -74,7 +74,7 @@ function certsoft_plugin_menu(){
 	//add_submenu_page('udm-company-info','Company Info', 'Company Info', 'manage_options', 'udm-company-info-page', array($this, 'company_info_page'));
 	//add_submenu_page('udm-company-info','Company Info | Slider', 'Slider', 'manage_options', 'udm-company-info-slider', array($this, 'slider_page'));
 	//add_submenu_page('udm-company-info','Company Info | Help', 'Help', 'manage_options', 'udm-company-info-help', array($this, 'help_page'));
-}	
+}
 function certsoft_page(){
 	// Help Page
 	//$this->permissions();
@@ -115,8 +115,18 @@ function certsoft_package_button_func( $atts, $content = "" ) {
 		$string .= '<input type="submit" value="select package" />';
 		$string .= '</form>';
 	}
-	
+
 	return $string;
 }
 add_shortcode( 'certsoft_package_button', 'certsoft_package_button_func' );
+
+
+function certsoft_lowest_package_price_func($atts, $content = ""){
+	global $cert_db;
+	$account = get_option('certsoft_account',1);
+	$result = $cert_db->query("SELECT MIN(`packagePrice`) as price FROM ts_packages WHERE `packageActive` = 1");
+	$row = $result->fetch_assoc();
+	return "$".$row['option_value'];
+}
+add_shortcode( 'certsoft_lowest_package_price', 'certsoft_lowest_package_price_func' );
 ?>
