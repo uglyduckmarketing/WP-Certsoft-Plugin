@@ -39,17 +39,17 @@ if($result->num_rows > 0){
   print '<tr><td><strong>Account Name:</strong> </td><td>'.do_shortcode('[certsoft_school_name]').'</td><td>[certsoft_school_name]</td></tr>';
   print '<tr><td><strong>URL</strong>: </td><td>'.do_shortcode('[certsoft_school_url]').'</td><td>[certsoft_school_url]</td></tr>';
   print '<tr><td><strong>Email</strong>: </td><td>'.do_shortcode('[certsoft_school_email]').'</td><td>[certsoft_school_email]</td></tr>';
-  print '<tr><td><strong>Phone</strong>: </td><td>'.$school_info["phone"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>Tolle Free #</strong>: </td><td>'.$school_info["tollFree"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>Fax</strong>: </td><td>'.$school_info["fax"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>Address</strong>: </td><td>'.$school_info["address"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>City</strong>: </td><td>'.$school_info["city"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>State</strong>: </td><td>'.$school_info["state"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>Zipcode</strong>: </td><td>'.$school_info["zip"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>License</strong>: </td><td>'.$school_info["license"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>Homepage</strong>: </td><td>'.$school_info["homepage"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.$school_info["instructorFirstName"].'</td><td>[certsoft_]</td></tr>';
-  print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.$school_info["instructorLastName"].'</td><td>[certsoft_]</td></tr>';
+  print '<tr><td><strong>Phone</strong>: </td><td>'.do_shortcode('[certsoft_school_phone]').'</td><td>[certsoft_school_phone]</td></tr>';
+  print '<tr><td><strong>Tolle Free #</strong>: </td><td>'.do_shortcode('[certsoft_school_phone_tollfree]').'</td><td>[certsoft_school_phone_tollfree]</td></tr>';
+  print '<tr><td><strong>Fax</strong>: </td><td>'.do_shortcode('[certsoft_school_fax]').'</td><td>[certsoft_school_fax]</td></tr>';
+  print '<tr><td><strong>Address</strong>: </td><td>'.do_shortcode('[certsoft_school_address]').'</td><td>[certsoft_school_address]</td></tr>';
+  print '<tr><td><strong>City</strong>: </td><td>'.do_shortcode('[certsoft_school_address_city]').'</td><td>[certsoft_school_address_city]</td></tr>';
+  print '<tr><td><strong>State</strong>: </td><td>'.do_shortcode('[certsoft_school_address_state]').'</td><td>[certsoft_school_address_state]</td></tr>';
+  print '<tr><td><strong>Zipcode</strong>: </td><td>'.do_shortcode('[certsoft_school_address_zip]').'</td><td>[certsoft_school_address_zip]</td></tr>';
+  print '<tr><td><strong>License</strong>: </td><td>'.do_shortcode('[certsoft_school_license]').'</td><td>[certsoft_school_license]</td></tr>';
+  print '<tr><td><strong>Homepage</strong>: </td><td>'.do_shortcode('[certsoft_school_homepage]').'</td><td>[certsoft_school_homepage]</td></tr>';
+  print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.do_shortcode('[certsoft_school_instructor_first_name]').'</td><td>[certsoft_school_instructor_first_name]</td></tr>';
+  print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.do_shortcode('[certsoft_school_instructor_last_name]').'</td><td>[certsoft_school_instructor_last_name]</td></tr>';
 	print '<tr><td><strong>Lowest Package Price</strong>: </td><td>'.do_shortcode('[certsoft_lowest_package_price]').'</td><td>[certsoft_lowest_package_price]</td></tr>';
 }
 
