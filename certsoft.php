@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.5
+Version: 1.5.1
 GitHub Plugin URI: https://github.com/uglyduckmarketing/WP-Certsoft-Plugin
 */
 
@@ -150,7 +150,7 @@ function certsoft_page(){
 				$school = $result->fetch_assoc();
 				return $school['fax'];
 			}
-		}			
+		}
 
 		add_shortcode( 'certsoft_school_address', 'certsoft_school_address_func');
 		function certsoft_school_address_func(){
@@ -241,8 +241,10 @@ function certsoft_package_button_func( $atts, $content = "" ) {
 	$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
 	$row = $result->fetch_assoc();
 	$cs_school_url = $row["schoolURL"];
-	$cs_school_dir = 'ts-school';
+	$cs_school_dir = 'cs-content';
 	$cs_mod_dir = 'modules';
+	$cs_school_mod = get_option('certsoft_school_mod_dir', 'school' );
+
 	$result = $cert_db->query("SELECT * FROM cs_options WHERE option_name = 'school_signup_template' AND account_id = ".$account);
 	$row = $result->fetch_assoc();
 	$cs_signup_template = $row['option_value'];
@@ -252,10 +254,11 @@ function certsoft_package_button_func( $atts, $content = "" ) {
 	//
 	$result = $cert_db->query("SELECT * FROM ts_packages WHERE packageID = {$atts['package']}");
 	$string = '';
+
 	while($row = $result->fetch_assoc()) {
 		$string .= '<form action="';
 		$string .= $cs_school_url.'/';
-		$string .= $cs_school_dir.'/'.$cs_mod_dir.'/school/signup/';
+		$string .= $cs_school_dir.'/'.$cs_mod_dir.'/'.$cs_school_mod.'/signup/';
 		$string .= $cs_signup_template;
 		$string .= '/register_actions.php';
 		$string .= '" method="post">';

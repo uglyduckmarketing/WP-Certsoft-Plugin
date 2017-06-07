@@ -68,6 +68,7 @@ if(is_object($cert_db)){
 		$row = $result->fetch_assoc();
 	}
 	$cs_signup_template = $row['option_value'];
+
 	$result = $cert_db->query("SELECT * FROM cs_options WHERE option_name = 'school_signup_style' AND account_id = ".$account);
 	if($result->num_rows > 0){
 		$row = $result->fetch_assoc();
