@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.5.3
+Version: 1.5.3.1
 GitHub Plugin URI: https://github.com/uglyduckmarketing/WP-Certsoft-Plugin
 */
 
@@ -283,7 +283,7 @@ function certsoft_lowest_package_price_func($atts, $content = ""){
 }
 add_shortcode( 'certsoft_lowest_package_price', 'certsoft_lowest_package_price_func' );
 
-add_shortcode( 'certsoft_dmv_link', 'certsoft_dmv_link_func' );
+add_shortcode( 'certsoft_dmv_url', 'certsoft_dmv_url_func' );
 function certsoft_dmv_link_func($atts, $content = ""){
 	global $cert_db;
 
@@ -296,7 +296,7 @@ function certsoft_dmv_link_func($atts, $content = ""){
 	}
 }
 
-add_shortcode( 'certsoft_dmv_url', 'certsoft_dmv_url_func' );
+add_shortcode( 'certsoft_dmv_link', 'certsoft_dmv_link_func' );
 function certsoft_dmv_url_func($atts, $content = ""){
 	global $cert_db;
 
