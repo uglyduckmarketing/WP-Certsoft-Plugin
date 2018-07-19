@@ -51,7 +51,8 @@ if($result->num_rows > 0){
   print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.do_shortcode('[certsoft_school_instructor_first_name]').'</td><td>[certsoft_school_instructor_first_name]</td></tr>';
   print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.do_shortcode('[certsoft_school_instructor_last_name]').'</td><td>[certsoft_school_instructor_last_name]</td></tr>';
 	print '<tr><td><strong>Lowest Package Price</strong>: </td><td>'.do_shortcode('[certsoft_lowest_package_price]').'</td><td>[certsoft_lowest_package_price]</td></tr>';
-	print '<tr><td><strong>DMV URL</strong>: </td><td>'.do_shortcode('[certsoft_dmv_link]').'</td><td>[certsoft_dmv_link]</td></tr>';
+	print '<tr><td><strong>DMV URL</strong>: </td><td>'.do_shortcode('[certsoft_dmv_url]').'</td><td>[certsoft_dmv_url]</td></tr>';
+	print '<tr><td><strong>DMV Link</strong>: </td><td>'.do_shortcode('[certsoft_dmv_link]').'</td><td>[certsoft_dmv_link]</td></tr>';
 }
 
 ?>

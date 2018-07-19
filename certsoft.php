@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.5.2
+Version: 1.5.3
 GitHub Plugin URI: https://github.com/uglyduckmarketing/WP-Certsoft-Plugin
 */
 
@@ -293,6 +293,19 @@ function certsoft_dmv_link_func($atts, $content = ""){
 		$row = $result->fetch_assoc();
 		$id = $row['license'];
 		return "https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00";
+	}
+}
+
+add_shortcode( 'certsoft_dmv_url', 'certsoft_dmv_url_func' );
+function certsoft_dmv_url_func($atts, $content = ""){
+	global $cert_db;
+
+	$account = get_option('certsoft_account',1);
+	$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
+	if(is_object($result)){
+		$row = $result->fetch_assoc();
+		$id = $row['license'];
+		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">DMV LINK</a>";
 	}
 }
 
