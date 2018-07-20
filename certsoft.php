@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.5.3.1
+Version: 1.5.3.3
 GitHub Plugin URI: https://github.com/uglyduckmarketing/WP-Certsoft-Plugin
 */
 
@@ -284,7 +284,7 @@ function certsoft_lowest_package_price_func($atts, $content = ""){
 add_shortcode( 'certsoft_lowest_package_price', 'certsoft_lowest_package_price_func' );
 
 add_shortcode( 'certsoft_dmv_url', 'certsoft_dmv_url_func' );
-function certsoft_dmv_link_func($atts, $content = ""){
+function certsoft_dmv_url_func($atts, $content = ""){
 	global $cert_db;
 
 	$account = get_option('certsoft_account',1);
@@ -297,7 +297,7 @@ function certsoft_dmv_link_func($atts, $content = ""){
 }
 
 add_shortcode( 'certsoft_dmv_link', 'certsoft_dmv_link_func' );
-function certsoft_dmv_url_func($atts, $content = ""){
+function certsoft_dmv_link_func($atts, $content = ""){
 	global $cert_db;
 
 	$account = get_option('certsoft_account',1);
@@ -305,7 +305,7 @@ function certsoft_dmv_url_func($atts, $content = ""){
 	if(is_object($result)){
 		$row = $result->fetch_assoc();
 		$id = $row['license'];
-		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">DMV LINK</a>";
+		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">{$id}</a>";
 	}
 }
 
