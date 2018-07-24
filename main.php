@@ -47,7 +47,7 @@ if($result->num_rows > 0){
   print '<tr><td><strong>State</strong>: </td><td>'.do_shortcode('[certsoft_school_address_state]').'</td><td>[certsoft_school_address_state]</td></tr>';
   print '<tr><td><strong>Zipcode</strong>: </td><td>'.do_shortcode('[certsoft_school_address_zip]').'</td><td>[certsoft_school_address_zip]</td></tr>';
   print '<tr><td><strong>License</strong>: </td><td>'.do_shortcode('[certsoft_school_license]').'</td><td>[certsoft_school_license]</td></tr>';
-  print '<tr><td><strong>License Linked</strong>: </td><td>'.do_shortcode('[certsoft_school_license_linked]').'</td><td>[certsoft_school_license_linked]</td></tr>';
+  print '<tr><td><strong>License Linked</strong>: </td><td>'.do_shortcode('[certsoft_license_linked]').'</td><td>[certsoft_license_linked]</td></tr>';
   print '<tr><td><strong>Homepage</strong>: </td><td>'.do_shortcode('[certsoft_school_homepage]').'</td><td>[certsoft_school_homepage]</td></tr>';
   print '<tr><td><strong>Instructor First Name</strong>: </td><td>'.do_shortcode('[certsoft_school_instructor_first_name]').'</td><td>[certsoft_school_instructor_first_name]</td></tr>';
   print '<tr><td><strong>Instructor Last Name</strong>: </td><td>'.do_shortcode('[certsoft_school_instructor_last_name]').'</td><td>[certsoft_school_instructor_last_name]</td></tr>';
