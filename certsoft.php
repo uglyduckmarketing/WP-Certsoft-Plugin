@@ -6,7 +6,7 @@ Plugin URI: http://certsoft.net/
 Description: This plugin integrates WordPress with the CertSoft System
 Author: CertSoft
 Author URI: http://certsoft.net/
-Version: 1.5.3.3
+Version: 1.5.3.4
 GitHub Plugin URI: https://github.com/uglyduckmarketing/WP-Certsoft-Plugin
 */
 
@@ -162,6 +162,16 @@ function certsoft_page(){
 				return $school['address'];
 			}
 		}
+		add_shortcode( 'certsoft_school_address2', 'certsoft_school_address_func2');
+		function certsoft_school_address_func2(){
+			global $cert_db;
+			$account = get_option('certsoft_account',1);
+			$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
+			if($result->num_rows > 0){
+				$school = $result->fetch_assoc();
+				return $school['address2'];
+			}
+		}
 		add_shortcode( 'certsoft_school_address_city', 'certsoft_school_address_city_func');
 		function certsoft_school_address_city_func(){
 			global $cert_db;
@@ -305,7 +315,21 @@ function certsoft_dmv_link_func($atts, $content = ""){
 	if(is_object($result)){
 		$row = $result->fetch_assoc();
 		$id = $row['license'];
-		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">{$id}</a>";
+		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">Click Here To Verify License</a>";
+	}
+}
+
+
+add_shortcode( 'certsoft_license_linked', 'certsoft_license_linked_func' );
+function certsoft_dmv_link_func($atts, $content = ""){
+	global $cert_db;
+
+	$account = get_option('certsoft_account',1);
+	$result = $cert_db->query("SELECT * FROM ts_schools WHERE schoolID = ".$account);
+	if(is_object($result)){
+		$row = $result->fetch_assoc();
+		$id = $row['license'];
+		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">#{$id}</a>";
 	}
 }
 
