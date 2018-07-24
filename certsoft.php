@@ -321,7 +321,7 @@ function certsoft_dmv_link_func($atts, $content = ""){
 
 
 add_shortcode( 'certsoft_license_linked', 'certsoft_license_linked_func' );
-function certsoft_dmv_link_func($atts, $content = ""){
+function certsoft_license_linked_func($atts, $content = ""){
 	global $cert_db;
 
 	$account = get_option('certsoft_account',1);
