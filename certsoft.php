@@ -315,7 +315,7 @@ function certsoft_dmv_link_func($atts, $content = ""){
 	if(is_object($result)){
 		$row = $result->fetch_assoc();
 		$id = $row['license'];
-		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">Click Here To Verify License</a>";
+		return "<a target=\"_blank\" href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">Click Here To Verify License</a>";
 	}
 }
 
@@ -329,7 +329,7 @@ function certsoft_license_linked_func($atts, $content = ""){
 	if(is_object($result)){
 		$row = $result->fetch_assoc();
 		$id = $row['license'];
-		return "<a href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">#{$id}</a>";
+		return "<a target=\"_blank\" href=\"https://www.dmv.ca.gov/wasapp/olinq2/display.do?submitName=Display&ol={$id}~T~{$id}~00\">#{$id}</a>";
 	}
 }
 
